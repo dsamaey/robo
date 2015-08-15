@@ -1,14 +1,12 @@
-package be.alcibiades.robotics.particlefiltermaze;
+package be.alcibiades.robotics.visualization;
 
+import be.alcibiades.robotics.particlefiltermaze.Pose;
 import org.jcodec.api.SequenceEncoder;
 import org.jcodec.scale.AWTUtil;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.stream.IntStream;
-
-import static org.junit.Assert.*;
 
 public class VisualizationTest {
 
@@ -29,7 +27,7 @@ public class VisualizationTest {
         for (int i = 0; i < 40; ++i) {
             pose = pose.move(20, 0.5, 0.1);
             visualization = visualization.draw(pose);
-            sequenceEncoder.encodeNativeFrame(AWTUtil.fromBufferedImage(visualization.getImage()));
+            sequenceEncoder.encodeNativeFrame(AWTUtil.fromBufferedImage(visualization.getCurrentImage()));
         }
         File outputFile = visualization.store(new File(tmpDir), "walk");
         sequenceEncoder.finish();
