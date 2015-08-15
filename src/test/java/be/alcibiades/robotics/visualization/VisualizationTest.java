@@ -20,19 +20,15 @@ public class VisualizationTest {
     @Test
     public void walk() throws IOException {
         String tmpDir = System.getProperty("java.io.tmpdir");
-        SequenceEncoder sequenceEncoder = new SequenceEncoder(new File(tmpDir, "walk.mp4"));
 
-        Visualization visualization = new Visualization();
+        Visualization visualization = new Visualization().setVideoFile(new File(tmpDir, "walk.mp4"));
         Pose pose = new Pose(10, 10, 45 * 2 * Math.PI / 360);
         for (int i = 0; i < 40; ++i) {
             pose = pose.move(20, 0.5, 0.1);
-            visualization = visualization.draw(pose);
-            sequenceEncoder.encodeNativeFrame(AWTUtil.fromBufferedImage(visualization.getCurrentImage()));
+            visualization.draw(pose);
+            visualization.next();
         }
-        File outputFile = visualization.store(new File(tmpDir), "walk");
-        sequenceEncoder.finish();
-        System.out.println(outputFile);
-
+        visualization.finish();
     }
 
 }
